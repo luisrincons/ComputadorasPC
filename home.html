@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>BackEnd</title>
+<meta name="description" content="Evaluación digital" />
+<link rel="stylesheet" type="text/css" href="css/groups_evauations_form.css" />
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
+<script type="text/javascript">
+function table_slot_show(nbutton){
+  document.getElementById("tabla_slot" + nbutton).style.display  = 'block';
+}
+
+function table_slot_hidden(nbutton){
+  document.getElementById("tabla_slot" + nbutton).style.display  = 'none';
+}
+
+$(init);
+function init() {
+  $('#cardPile').html( '' );
+  $('#cardSlots').html( '' );
+  var cardNamePile = [ 'exam_calendar_start', 'exam_calendar_finish', 'exam_duration_time', 'pause', 'results' ];
+  var cardIconBack = [ 'calendar_start.png', 'calendar_finish.png', 'clock.png', 'pause.png', 'results.png' ];
+  for ( var i=0; i<=4; i++ ) {
+    $('<div></div>')
+	  .data({'typeIcon': cardNamePile[i]}) //Asignación de nombre
+	  .data({'numIcon': i}) //Número de botón
+	  .data({'tag': 'out'}) //Tag
+	  .attr('id', 'card'+i) //id
+	  .appendTo('#cardPile') //La creación es el cardPile
+	  .css('background-image', 'url(images/' + cardIconBack[i] + ')') //Imagen del boton
+	  .draggable({	//evento de drag
+			revert: function (event, ui) { //revertir a posición original
+				$(this).data("draggable").originalPosition = { top: 0, left: 0}
+				return !event;
+			},
+			stop: function(event, ui) {
+			if($(this).data("tag") == "in"){ 
+			   $(this).data('tag', 'out');
+			   //Mostrar
+			   //table_slot_show($(this).data("numIcon"));
+			} else {
+			   $(this).data('tag', 'out');
+			   //Ocultar
+			   //table_slot_hidden($(this).data("numIcon"));
+			}//end-if
+			},
+			drag: function(event,ui){ //asignar dato 'droppein' al boton
+			if($(this).data('droppedin')){
+			   $(this).data('droppedin').droppable('enable');
+			   $(this).data('droppedin', null)
+			}
+			}
+	  })
+   };
+
+//Contenedor
+  var cardNameSlot = [ 'id', 'exam_calendar_start', 'exam_calendar_finish', 'exam_duration_time', 'pause', 'results' ];
+  var cardTextSlot = [ '0', '1', '2', '3', '4', '5'];
+  for ( var i=0; i<=1; i++ ) {  	  
+    $('<div>'+cardTextSlot[i]+'</div>') //propiedades del slot
+	.data( 'typeIcon', cardNameSlot[i] )
+	.attr( 'id', 'slot_data'+ i )
+	.appendTo( '#cardSlots' )
+	.droppable({	
+	 drop: handleCardDrop
+    });
+  }
+ 
+function handleCardDrop( event, ui ) {
+  var cardName = ui.draggable.data('typeIcon');
+  var cardNum  = ui.draggable.data('numIcon'); 
+  var cardDrag = '[' + cardNum + ']';
+  var slotName = $(this).data('typeIcon');
+  ui.draggable.position( { of: $(this), my: 'left top', at: 'left top' } );
+  ui.draggable.data('droppedin', $(this));
+  $(this).droppable('disable');
+  /*
+  if ( slotName == cardName ) {
+		   ui.draggable.data('tag', 'in');
+		   table_slot_show(cardNum);
+  } else {
+	ui.draggable.animate({'left':'0px', 'top':'0px'}, "slow");
+	ui.draggable.data('droppedin').droppable('enable');
+  }
+  */
+}
+
+/* Slot 0
+$('#slot_data0').css('border-style', 'none');
+$('#slot_data0').css('background', 'none');
+$('#slot_data0').css('color', '#ccc');   
+$('#slot_data0').css('font-size', '30px'); 
+$('#slot_data0').css('vertical-align', 'middle');
+$('#slot_data5').css('font-size', '10px');
+*/
+
+}
+
+</script>
+<script type="text/javascript">
+function trim (myString){
+return myString.replace(/^\s+/g,'').replace(/\s+$/g,'')
+}
+</script>
+</head>
+<body >
+<script type="text/javascript">
+	$(function() {
+		var d=300;
+		$('#navigation a').each(function(){
+			$(this).stop().animate({
+				'marginTop':'-80px'
+			},d+=150);
+		});
+
+		$('#navigation > li').hover(
+		function () {
+			$('a',$(this)).stop().animate({
+				'marginTop':'-2px'
+			},200);
+		},
+		function () {
+			$('a',$(this)).stop().animate({
+				'marginTop':'-80px'
+			},200);
+		}
+	);
+	});
+</script>
+        <div id="templatemo_main">
+        <!-- Inicio -->
+                <div id="content_header">
+                </div>
+                <div id="templatemo_content">
+                
+                    <div id="content_objects">
+                        <div id="cardPile">
+                    
+                        </div>
+                    </div>
+                
+                    <div id="content_form">
+                      <div id="form_data">
+                        <div id="cardSlots">
+                
+                        </div>
+                      </div>
+                    </div>
+                
+                    <div id="content_exam">
+                        <div id="exam_list">
+                        
+                        </div>
+                    </div>
+                    
+                    <div id="content_group">
+                        <div id="group_list">
+                        
+                        </div>
+                    </div>
+                
+                </div>
+        </div>
+
+</body>
+</html>
