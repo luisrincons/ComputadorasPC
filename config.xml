@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns = "http://www.w3.org/ns/widgets"
+
+        xmlns:gap   = "http://phonegap.com/ns/1.0"
+        id          = "com.computadoraspc.backend"
+        version     = "0.0.1"
+        versionCode = "10" >
+
+        <!-- versionCode is optional and Android only -->
+
+        <preference name="phonegap-version" value="3.7.0" />
+
+        <name>ComputadorasPC</name>
+
+        <description>
+            Backend de ComputadorasPC.
+        </description>
+
+        <author href="http://www.computadoraspc.com" email="sistemas.cdcomdemexico@gmail.com">
+            Luis Alvaro Rincón Saldaña
+        </author>
+        
+        <icon src="images/logo.png" />
+        
+        <gap:plugin name="org.apache.cordova.dialogs" />
+        <gap:plugin name="org.apache.cordova.media-capture" />
+        <gap:plugin name="org.apache.cordova.file-transfer" />
+        <gap:plugin name="org.apache.cordova.network-information" />
+
+    </widget>
