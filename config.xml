@@ -21,7 +21,7 @@
         </author>
         
         <icon src="images/logo.png" />
-        
+        <gap:splash src="images/splash.png" />
         <gap:plugin name="org.apache.cordova.dialogs" />
         <gap:plugin name="org.apache.cordova.media-capture" />
         <gap:plugin name="org.apache.cordova.file-transfer" />
